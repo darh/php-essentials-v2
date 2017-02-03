@@ -1,0 +1,10 @@
+build_image:
+  image: docker:git
+  services:
+  - docker:dind
+  script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.kendu.si
+    - docker build --rm --tag registry.kendu.si/docker/php:7.1-fpm-alpine .
+    - docker push registry.kendu.si/docker/php:7.1-fpm-alpine
+  only:
+    - master
